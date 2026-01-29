@@ -241,24 +241,39 @@ function App() {
   };
 
   return (
-    <div style={appContainerStyles}>
-      <Snackbar snackbars={snackbars} onClose={closeSnackbar} />
-      <h1>Todo Progress App</h1>
-      <ProgressBar todos={todos} />
-      <TodoForm onAddTodo={addTodo} />
-      <div>
-        {todos.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#999' }}>No todos yet. Add one to get started!</p>
-        ) : (
-          todos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onStatusChange={updateTodoStatus}
-              onDelete={deleteTodo}
-            />
-          ))
-        )}
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      {/* Sidebar */}
+      <div style={{
+        width: '280px',
+        backgroundColor: '#fff',
+        borderRight: '1px solid #e0e0e0',
+        padding: '20px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+        overflowY: 'auto',
+      }}>
+        <h2 style={{ margin: '0 0 20px 0', fontSize: '16px', color: '#333' }}>Progress</h2>
+        <ProgressBar todos={todos} />
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Snackbar snackbars={snackbars} onClose={closeSnackbar} />
+        <h1>Todo Progress App</h1>
+        <TodoForm onAddTodo={addTodo} />
+        <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '20px' }}>
+          {todos.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#999' }}>No todos yet. Add one to get started!</p>
+          ) : (
+            todos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onStatusChange={updateTodoStatus}
+                onDelete={deleteTodo}
+              />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
